@@ -66,6 +66,7 @@ class GdcService:
             raise ValueError(f'Failed to fetch data from {url} due to {response.status_code}: {response.reason}')
 
     def _prepare_query_params(self, subject_ids: typing.List, fields: typing.List[str]=None) -> typing.Dict:
+
         filters = {
             "op": "in",
             "content": {
@@ -198,17 +199,22 @@ class GdcService:
 
         vd = pp.VariationDescriptor()
         vd.id = mutation['id']
+
         if vcf_record is not None:
             vd.vcf_record.CopyFrom(vcf_record)
 
-        # TODO: set gene
         # TODO: 't_depth', 't_ref_count', 't_alt_count', 'n_depth', 'n_ref_count', 'n_alt_count'
         # TODO: mutation status
 
         for csq in mutation['consequence']:
-            expression = GdcService._map_consequence_to_expression(csq)
+          
+            (expression, gene_descriptor) = (
+                GdcMutationService._map_consequence_to_expression_and_gene_descriptor(csq))
+
             if expression is not None:
                 vd.expressions.append(expression)
+            if gene_descriptor is not None:
+                vd.gene_context.CopyFrom(gene_descriptor)
 
         vd.molecule_context = pp.MoleculeContext.genomic
 
@@ -235,7 +241,8 @@ class GdcService:
         return vcf_record
 
     @staticmethod
-    def _map_consequence_to_expression(csq) -> typing.Optional[pp.Expression]:
+    def _map_consequence_to_expression_and_gene_descriptor(csq) -> (typing.Optional[pp.Expression],
+                                                                    typing.Optional[pp.GeneDescriptor]):
         tx = csq['transcript']
         print(tx)
         
@@ -248,4 +255,9 @@ class GdcService:
         ann = tx['annotation']['hgvsc']
         expression.value = f'{tx_id}:{ann}'
 
-        return expression
+        gene_context = pp.GeneDescriptor()
+        gene_context.value_id = tx['gene']['gene_id']
+        gene_context.symbol = tx['gene']['symbol']
+
+        return (expression, gene_context)
+

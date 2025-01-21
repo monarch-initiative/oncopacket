@@ -1,7 +1,7 @@
 import os
 from google.protobuf.json_format import MessageToJson
 
-from oncoexporter.cda import CdaTableImporter, configure_cda_table_importer
+from oncopacket.cda import CdaTableImporter, configure_cda_table_importer
 
 '''
 https://cda.readthedocs.io/en/latest/documentation/cdapython/code_update/#returning-a-matrix-of-results

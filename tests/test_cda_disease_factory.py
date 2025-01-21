@@ -6,8 +6,8 @@ import phenopackets as pp
 import pytest
 
 
-from oncoexporter.cda import CdaDiseaseFactory
-from oncoexporter.cda.mapper import OpDiagnosisMapper
+from oncopacket.cda import CdaDiseaseFactory
+from oncopacket.cda.mapper import OpDiagnosisMapper
 
 
 MERGED_DIAG_RESEARCH_DF_FILE = os.path.join(os.path.dirname(__file__), 'data', 'merged_diagnosis_researchsubject_tiny.tsv')

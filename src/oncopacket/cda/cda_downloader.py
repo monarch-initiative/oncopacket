@@ -44,15 +44,15 @@ class CdaDownloader:
 
     def get_ncit_neoplasm_core(self):
         # Reads contents with UTF-8 encoding and returns str.
-        neo_core = files('oncoexporter.ncit_mapping_files').joinpath('Neoplasm_Core.csv').read_text()
+        neo_core = files('oncopacket.ncit_mapping_files').joinpath('Neoplasm_Core.csv').read_text()
         print("NEO CORE", neo_core)
 
     def get_local_share_directory(self, local_dir=None):
         my_platform = platform.platform()
         my_system = platform.system()
         if local_dir is None:
-            local_dir = os.path.join(os.path.expanduser('~'), ".oncoexporter")
+            local_dir = os.path.join(os.path.expanduser('~'), ".oncopacket")
         if not os.path.exists(local_dir):
             os.makedirs(local_dir)
-            print(f"[INFO] Created new directory for oncoexporter at {local_dir}")
+            print(f"[INFO] Created new directory for oncopacket at {local_dir}")
         return local_dir

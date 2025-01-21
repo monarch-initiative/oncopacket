@@ -78,8 +78,8 @@ class CdaFactory(metaclass=abc.ABCMeta):
         my_platform = platform.platform()
         my_system = platform.system()
         if local_dir is None:
-            local_dir = os.path.join(os.path.expanduser('~'), ".oncoexporter")
+            local_dir = os.path.join(os.path.expanduser('~'), ".oncopacket")
         if not os.path.exists(local_dir):
             os.makedirs(local_dir)
-            print(f"[INFO] Created new directory for oncoexporter at {local_dir}")
+            print(f"[INFO] Created new directory for oncopacket at {local_dir}")
         return local_dir

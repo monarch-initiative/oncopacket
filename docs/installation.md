@@ -15,8 +15,8 @@ Feel free to skip this if you already have a virtual environment which you want 
 
 
 ```shell
-python3 -m venv oncoexporter-venv
-source oncoexporter-venv/bin/activate
+python3 -m venv oncopacket-venv
+source oncopacket-venv/bin/activate
 ```
 
 
@@ -32,7 +32,7 @@ Next, Oncoexporter can be installed into an existing virtual environment by runn
 
 ```shell
  # Ensure you are in the repo folder
-cd oncoexporter
+cd oncopacket
 python3 -m pip install --editable .
 ```
 

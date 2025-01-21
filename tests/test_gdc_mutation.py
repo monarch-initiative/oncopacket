@@ -1,6 +1,6 @@
 import pytest
 
-from oncoexporter.cda import GdcMutationService
+from oncopacket.cda import GdcMutationService
 
 
 @pytest.mark.skip('Requires internet connection')

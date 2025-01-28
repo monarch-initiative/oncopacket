@@ -7,6 +7,7 @@ from oncopacket.cda import CdaTableImporter, configure_cda_table_importer
 https://cda.readthedocs.io/en/latest/documentation/cdapython/code_update/#returning-a-matrix-of-results
 old: all of the functions previously used with, or chained onto Q()...run() have been replaced with the single function fetch_rows()
 
+
 fetch_rows(table=None, *, match_all=[], match_any=[], data_source=[], add_columns=[], link_to_table='', provenance=False, count_only=False, return_data_as='dataframe', output_file='', debug=False)
 
 fetch_rows( table='subject', match_all=[ 'primary_disease_type = *duct*', 'sex = F*' ] )

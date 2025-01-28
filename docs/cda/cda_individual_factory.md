@@ -1,3 +1,3 @@
 # CdaIndividualFactory
 
-::: src.oncoexporter.cda.CdaIndividualFactory
+::: src.oncopacket.cda.CdaIndividualFactory

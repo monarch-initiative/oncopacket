@@ -1,3 +1,3 @@
 # CdaMutationFactory
 
-::: src.oncoexporter.cda.CdaMutationFactory
+::: src.oncopacket.cda.CdaMutationFactory

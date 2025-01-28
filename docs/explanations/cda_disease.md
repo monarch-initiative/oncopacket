@@ -2,8 +2,6 @@
 
 We extract information about the disease diagnosis from two CDA tables, `diagnosis` and `researchsubject`. We first summarize the tables and then outline our ETL strategy.
 
-
-
 ## diagnosis
 
 

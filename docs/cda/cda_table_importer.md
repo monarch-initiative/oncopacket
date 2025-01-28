@@ -1,8 +1,3 @@
 # CdaTableImporter
 
-
-
-
-
-
-::: src.oncoexporter.cda.CdaTableImporter
+::: src.oncopacket.cda.CdaTableImporter

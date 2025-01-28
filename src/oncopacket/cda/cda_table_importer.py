@@ -9,7 +9,7 @@ from tqdm import tqdm
 from cdapython import fetch_rows
 import phenopackets as PPkt
 
-from oncopacket.cda_disease_factory import CdaDiseaseFactory
+from .cda_disease_factory import CdaDiseaseFactory
 from .cda_importer import CdaImporter
 from .cda_factory import CdaFactory
 from .cda_individual_factory import CdaIndividualFactory
@@ -87,7 +87,9 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
                 individual_df = pickle.load(cachehandle)
         else:
             print(f"\tcalling CDA function")
+            print(callback_fxn())
             individual_df = callback_fxn()
+            print(individual_df.head())
             if self._use_cache:
                 print(f"Creating cached dataframe as {fpath_cache}")
                 with open(fpath_cache, 'wb') as f:

@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [project]
-name = "oncoexporter"
+name = "oncopacket"
 dynamic = ["version"]
 requires-python = ">=3.8"
 description = "Generate and work with GA4GH phenopackets for NCI"
@@ -42,10 +42,10 @@ test = ["pytest>=7.0.0,<8.0.0"]
 
 
 [project.urls]
-homepage = "https://github.com/monarch-initiative/oncoexporter"
-repository = "https://github.com/monarch-initiative/oncoexporter.git"
-documentation = "https://github.com/monarch-initiative/oncoexporter"
-bugtracker = "https://github.com/monarch-initiative/oncoexporter/issues"
+homepage = "https://github.com/monarch-initiative/oncopacket"
+repository = "https://github.com/monarch-initiative/oncopacket.git"
+documentation = "https://github.com/monarch-initiative/oncopacket"
+bugtracker = "https://github.com/monarch-initiative/oncopacket/issues"
 
 [tool.setuptools.dynamic]
-version = { attr = "oncoexporter.__version__" }
+version = { attr = "oncopacket.__version__" }

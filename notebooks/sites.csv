@@ -1,0 +1,345 @@
+primary_diagnosis_site,,count,UBERON Preferred Term
+,,66419,
+abdomen,abdomen,142,abdomen
+adrenal cortex,adrenal cortex,2,abdominal wall
+adrenal gland,adrenal gland,1068,acetabular part of hip bone
+alimentary part of gastrointestinal system,alimentary part of gastrointestinal system,2,adipose tissue
+anal canal,anal canal,81,adrenal cortex
+anterior mediastinum,anterior mediastinum,2,adrenal gland
+appendicular skeleton,appendicular skeleton,325,adrenal medulla
+axial skeleton plus cranial skeleton,#N/A,2,alimentary part of gastrointestinal system || digestive tract
+axillary lymph node,axillary lymph node,1,alveolar ridge
+bile duct,bile duct,51,amniotic fluid
+biliary system,#N/A,92,anal canal
+blood,blood,10,anal sphincter
+body of uterus,body of uterus,951,ankle joint
+bone marrow,bone marrow,2,anorectum
+bone of pelvis,#N/A,3,anterior mediastinum
+bone tissue,#N/A,69,anus
+brain,brain,6383,aorta
+brainstem,brainstem,66,aortic body
+breast,breast,21203,appendicular skeleton
+buccal mucosa,buccal mucosa,1,aqueous humor of eyeball
+caecum,caecum,1,arm
+cardiac ventricle,#N/A,48,artery
+central nervous system,central nervous system,978,articular cartilage of joint
+cerebellum,cerebellum,133,ascending colon
+chest,chest,28221,autonomic nervous system
+chest wall,chest wall,1,axilla
+colon,colon,4676,axillary lymph node
+cranial nerve,cranial nerve,1,axillary tail of breast
+craniocervical region,craniocervical region,1023,bile duct
+craniopharyngeal canal,#N/A,1,blood
+cranium,#N/A,4,blood vessel
+digestive system,#N/A,153,body of pancreas
+duodenum,duodenum,1,body of stomach
+ear,ear,368,body of uterus
+endocervix,endocervix,2,bone element
+endocrine gland,endocrine gland,12,bone marrow
+epididymis,epididymis,1,brain
+esophagus,esophagus,876,brain ventricle
+ethmoid sinus,#N/A,2,brainstem
+eye,eye,90,breast
+eyelid,eyelid,4,broad ligament of uterus
+facial lymph node,#N/A,4,bronchiole
+fallopian tube,fallopian tube,1,bronchus
+female reproductive organ,#N/A,106,buccal mucosa
+forelimb nerve,#N/A,1,buttock
+forelimb skin,forelimb skin,1,caecum
+frontal lobe,frontal lobe,46,calcaneus
+gallbladder,gallbladder,149,capillary
+gingiva,gingiva,11,cardia of stomach
+hard palate,hard palate,1,carina of trachea
+head,head,128,carotid artery segment
+head of pancreas,head of pancreas,1,carotid body
+head or neck skin,#N/A,2,cauda equina
+heart,heart,1,central canal of spinal cord
+hepatobiliary system,#N/A,1070,central nervous system
+hindlimb,#N/A,16,cerebellar hemisphere
+hindlimb long bone,#N/A,5,cerebellum
+hypodermis,hypodermis,293,cerebral cortex
+hypopharynx,hypopharynx,9,cerebral hemisphere
+immune system,#N/A,9029,cerebrospinal fluid
+inguinal lymph node,inguinal lymph node,7,cervical lymph node
+intestine,intestine,97,cervical region of vertebral column
+jejunum,jejunum,1,cervical spinal cord
+kidney,kidney,5085,cheek
+larynx,larynx,166,chest
+lateral wall of nasopharynx,lateral wall of nasopharynx,1,chest wall
+limb,limb,51,chin
+limb bone,#N/A,256,ciliary body
+lip,lip,9,clavicle bone
+liver,liver,956,clitoris
+lower lobe of lung,lower lobe of lung,4,coccyx
+lung,lung,12289,collection of basal ganglia
+lymph node,lymph node,1207,colon
+male reproductive system,#N/A,2,colonic mucosa
+mammalian vulva,mammalian vulva,12,common bile duct
+mammary gland,mammary gland,13,common iliac lymph node
+mandible,mandible,5,conjunctiva
+maxillary sinus,maxillary sinus,1,connective tissue
+mediastinum,mediastinum,3,cranial nerve
+meningeal cluster,meningeal cluster,8,craniocervical region
+meninx of spinal cord,meninx of spinal cord,1,deep cervical lymph node
+middle ear,middle ear,3,dermis
+mouth,#N/A,62,descending colon
+mouth floor,mouth floor,56,diaphragm
+multicellular organism,#N/A,2,dorsal plus ventral thalamus
+nasal cavity,nasal cavity,12,dorsum
+nasopharynx,nasopharynx,71,duodenum
+nervous system,nervous system,143,ear
+occipital lobe,occipital lobe,11,ectocervix
+optic disc,#N/A,3,endocervix
+orbit of skull,#N/A,21,endocrine gland
+oropharynx,oropharynx,16,endocrine system
+ovary,ovary,3893,endometrium
+pancreas,pancreas,2931,epididymis
+pancreatic duct,#N/A,1,epidural space
+paranasal sinus,paranasal sinus,1,esophagogastric junction
+parietal lobe,parietal lobe,23,esophagus
+parotid gland,parotid gland,12,esophagus mucosa
+pelvic region of trunk,pelvic region of trunk,246,external acoustic meatus
+penis,penis,13,external iliac lymph node
+peritoneum,peritoneum,4,extrahepatic bile duct
+pharynx,pharynx,2,eye
+pineal tract,#N/A,23,eyebrow
+pituitary gland,pituitary gland,6,eyelid
+pleura,pleura,3,fallopian tube
+pleural cavity,pleural cavity,1,female reproductive system
+posterior mediastinum,posterior mediastinum,3,femoral artery
+posterior part of tongue,posterior part of tongue,28,femoral vein
+prostate gland,prostate gland,3284,femur
+rectosigmoid junction,rectosigmoid junction,90,fibula
+rectum,rectum,618,forehead
+renal pelvis,renal pelvis,7,forelimb skin
+renal system,renal system,57,frontal cortex
+respiratory system,respiratory system,2,frontal lobe
+retina,retina,7,fundus of stomach
+roof of mouth,#N/A,6,fundus of urinary bladder
+scrotum,scrotum,4,fused sacrum
+shoulder,shoulder,1,gallbladder
+sigmoid colon,sigmoid colon,1,ganglion
+skin of body,skin of body,1464,genitourinary system
+skin of hip,#N/A,5,gingiva
+skin of trunk,skin of trunk,1,gingiva of lower jaw
+small intestine,small intestine,70,gingiva of upper jaw
+soft palate,soft palate,2,glottis
+spinal cord,spinal cord,57,hard palate
+spleen,spleen,2,head
+stomach,stomach,1577,head of pancreas
+sublingual gland,sublingual gland,221,heart
+submandibular gland,submandibular gland,1,hematopoietic system
+supraglottic part of larynx,supraglottic part of larynx,1,hepatic duct
+tail of pancreas,tail of pancreas,2,hepatic flexure of colon
+telencephalon,#N/A,22,hepatic vein
+temporal lobe,temporal lobe,39,hepatopancreatic ampulla
+testis,testis,465,hindlimb skin
+thoracic cavity element,#N/A,388,hindlimb stylopod
+thoracic segment of trunk,#N/A,8,hip
+thoracic skeleton,#N/A,2,humerus
+thymus,thymus,315,hypodermis
+thyroid gland,thyroid gland,1715,hypopharynx
+tongue,tongue,137,hypothalamus
+tonsil,tonsil,48,ileum
+trachea,trachea,9,ilium
+upper esophagus,upper esophagus,346,infraclavicular lymph node
+upper limb segment,#N/A,10,inguinal lymph node
+urachus,urachus,1,inguinal part of abdomen
+ureter,ureter,15,internal acoustic meatus
+urethra,urethra,2,intestine
+urinary bladder,urinary bladder,71,intrahepatic bile duct
+uterine cervix,uterine cervix,1080,ischium
+uterus,uterus,2547,jaw skeleton
+vagina,vagina,16,jejunum
+vermiform appendix,vermiform appendix,3,kidney
+vertebral column,vertebral column,3,knee
+,,,lacrimal gland
+,,,large intestine
+,,,larynx
+,,,lateral wall of nasopharynx
+,,,leg
+,,,leptomeninx
+,,,lesser curvature of stomach
+,,,ligament
+,,,limb
+,,,lip
+,,,liver
+,,,lower esophagus
+,,,lower inner quadrant of breast
+,,,lower lobe of left lung
+,,,lower lobe of lung
+,,,lower outer quadrant of breast
+,,,lumbar region of vertebral column
+,,,lumbar spinal cord
+,,,lung
+,,,lymph node
+,,,main bronchus
+,,,major salivary gland
+,,,mammalian vulva
+,,,mammary gland
+,,,mandible
+,,,manual digit
+,,,manual digit 1
+,,,manual digit 2
+,,,manual digit 4
+,,,manual digit 5
+,,,manus
+,,,maxilla
+,,,maxillary sinus
+,,,mediastinal lymph node
+,,,mediastinum
+,,,medulla oblongata
+,,,meningeal cluster
+,,,meninx of spinal cord
+,,,mesenteric lymph node
+,,,mesentery
+,,,mesothelium
+,,,midbrain
+,,,middle ear
+,,,middle part of esophagus
+,,,middle phalanx of manus
+,,,mouth floor
+,,,mouth mucosa
+,,,mouth || oral cavity
+,,,mucosa of small intestine
+,,,mucosa of stomach
+,,,mucosa of urinary bladder
+,,,myometrium
+,,,nail
+,,,nasal cavity
+,,,nasopharynx
+,,,neck
+,,,neck of urinary bladder
+,,,nerve
+,,,nervous system
+,,,nipple
+,,,occipital cortex
+,,,occipital lobe
+,,,occipital lymph node
+,,,ocular adnexa
+,,,omentum
+,,,optic choroid
+,,,optic tract
+,,,oropharynx
+,,,ovary
+,,,palatine uvula
+,,,pancreas
+,,,paraaortic body
+,,,paraaortic lymph node
+,,,paranasal sinus
+,,,parasternal lymph node
+,,,parathyroid gland
+,,,parietal lobe
+,,,parotid gland
+,,,parotid lymph node
+,,,patella
+,,,pelvic lymph node
+,,,pelvic region of trunk
+,,,penis
+,,,pericardium
+,,,peripheral nervous system
+,,,peritoneal cavity
+,,,peritoneum
+,,,pes
+,,,pharyngeal tonsil
+,,,pharynx
+,,,pineal body
+,,,pinna
+,,,pituitary gland
+,,,placenta
+,,,pleura
+,,,pleural cavity
+,,,pons
+,,,popliteal area
+,,,popliteal lymph node
+,,,posterior cranial fossa
+,,,posterior mediastinum
+,,,posterior part of tongue
+,,,posterior wall of oropharynx
+,,,prepuce of penis
+,,,prostate gland
+,,,pyloric antrum
+,,,pylorus
+,,,radius bone
+,,,rectosigmoid junction
+,,,rectum
+,,,renal pelvis
+,,,renal system
+,,,respiratory system
+,,,reticuloendothelial system
+,,,retina
+,,,retromolar triangle
+,,,retroperitoneal lymph node
+,,,retroperitoneal space
+,,,rib
+,,,saliva-secreting gland
+,,,scalp
+,,,scapula
+,,,sciatic nerve
+,,,scrotum
+,,,sella turcica
+,,,seminal vesicle
+,,,shoulder
+,,,sigmoid colon
+,,,skeletal joint
+,,,skeletal muscle tissue
+,,,skin of body
+,,,skin of face
+,,,skin of neck
+,,,skin of trunk
+,,,skull
+,,,small intestine
+,,,soft palate
+,,,spermatic cord
+,,,spinal cord
+,,,spleen
+,,,splenic flexure of colon
+,,,splenic lymph node
+,,,sternum
+,,,stomach
+,,,subglottis
+,,,sublingual gland
+,,,submandibular gland
+,,,submandibular lymph node
+,,,subthalamic nucleus
+,,,supraclavicular lymph node
+,,,supraglottic part of larynx
+,,,synovial membrane of synovial joint
+,,,tail of pancreas
+,,,temporal cortex
+,,,temporal lobe
+,,,tendon
+,,,testis
+,,,thoracic part of esophagus
+,,,thoracic region of vertebral column
+,,,thoracic spinal cord
+,,,throat
+,,,thymus
+,,,thyroid gland
+,,,tibia
+,,,tongue
+,,,tonsil
+,,,trachea
+,,,transverse colon
+,,,trigone of urinary bladder
+,,,trunk
+,,,umbilical cord
+,,,upper esophagus
+,,,upper inner quadrant of breast
+,,,upper lobe of lung
+,,,upper outer quadrant of breast
+,,,urachus
+,,,ureter
+,,,ureteral orifice
+,,,urethra
+,,,urinary bladder
+,,,uterine cervix
+,,,uterus
+,,,vagina
+,,,vas deferens
+,,,vein
+,,,vermiform appendix
+,,,vertebra
+,,,vertebral column
+,,,wall of urinary bladder
+,,,wrist joint

@@ -77,7 +77,7 @@ class OpDiagnosisMapper(OpMapper):
 
     @staticmethod
     def multitissue_mapper():
-        module_with_tissue_mapping_tables = 'oncoexporter.ncit_mapping_files.cda_to_ncit_tissue_wise_mappings'
+        module_with_tissue_mapping_tables = 'oncopacket.ncit_mapping_files.cda_to_ncit_tissue_wise_mappings'
         tissue_tables = (
             'cda_to_ncit_map_bone.csv',
             'cda_to_ncit_map_brain.csv',
@@ -106,7 +106,7 @@ class OpDiagnosisMapper(OpMapper):
         ncit_map_df = pd.concat(frames)
         ncit_map = prepare_ncit_map(ncit_map_df)
 
-        module_with_uberon_table = 'oncoexporter.ncit_mapping_files'
+        module_with_uberon_table = 'oncopacket.ncit_mapping_files'
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(
             module_with_uberon_table,
             'uberon_to_ncit_diagnosis.tsv',
@@ -121,7 +121,7 @@ class OpDiagnosisMapper(OpMapper):
             DeprecationWarning, stacklevel=2,
         )
         # Use the mapping tables bundled in the package.
-        module = 'oncoexporter.ncit_mapping_files'
+        module = 'oncopacket.ncit_mapping_files'
         # TODO: decide which file to use
         with open_text(module, 'cda_to_ncit_map_old.tsv') as fh:
             ncit_map_df = pd.read_csv(

@@ -19,6 +19,9 @@ description = "Generate and work with GA4GH phenopackets for NCI"
 readme = "README.md"
 authors = [
     {name = "Peter Robinson", email="peter.robinson@jax.org"},
+    {name = "Justin Reese", email="justinreese@lbl.gov"},
+    {name = "Michael Sierk", email="michael.sierk@nih.gov"},
+    {name = "Daniel Danis", email="daniel.danis@bih-charite.de"},
      ]
 license = { file = "LICENSE" }
 classifiers = [

@@ -1,3 +1,3 @@
 # CdaBiosampleFactory
 
-::: src.oncoexporter.cda.CdaBiosampleFactory
+::: src.oncopacket.cda.CdaBiosampleFactory

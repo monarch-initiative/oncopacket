@@ -1,3 +1,3 @@
 # CdaDiseaseFactory
 
-::: src.oncoexporter.cda.CdaDiseaseFactory
+::: src.oncopacket.cda.CdaDiseaseFactory

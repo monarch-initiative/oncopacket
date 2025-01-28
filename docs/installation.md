@@ -15,32 +15,32 @@ Feel free to skip this if you already have a virtual environment which you want 
 
 
 ```shell
-python3 -m venv oncoexporter-venv
-source oncoexporter-venv/bin/activate
+python3 -m venv oncopacket-venv
+source oncopacket-venv/bin/activate
 ```
 
 
 
 
-The command above will create a new virtual environment at `oncoexporter-venv` and activate the environment.
+The command above will create a new virtual environment at `oncopacket-venv` and activate the environment.
 
 
-### Install Oncoexporter
+### Install oncopacket
 
-Next, Oncoexporter can be installed into an existing virtual environment by running:
+Next, oncopacket can be installed into an existing virtual environment by running:
 
 
 ```shell
  # Ensure you are in the repo folder
-cd oncoexporter
+cd oncopacket
 python3 -m pip install --editable .
 ```
 
-`pip` will install `oncoexporter` into the active environment. The package is installed in *editable* mode -
+`pip` will install `oncopacket` into the active environment. The package is installed in *editable* mode -
 any code updates are available after Python restart, instead of having to reinstall.
 
 
-### Use Oncoexporter in Jupyter notebook
+### Use oncopacket in Jupyter notebook
 
 
 To use the kernel in Jupyter notebook,
@@ -54,7 +54,7 @@ python3 -m pip install jupyter ipykernel
 Then, we can create a new Jupyter kernel and register the kernel with Jupyter by running:
 
 ```
-python -m ipykernel install --user --name oncoexporter_env --display-name "Oncoexporter"
+python -m ipykernel install --user --name oncopacket_env --display-name "oncopacket"
 ```
 
 Last, starting from the project directory, we can run Jupyter to work on the notebooks of the Oncoexport repository.
@@ -66,7 +66,7 @@ jupyter-notebook
 
 
 At this point, a Jupyter page should open in the system browser. Navigate to the notebook or create one and be sure
-to activate the ``oncoexporter_env`` kernel.
+to activate the ``oncopacket_env`` kernel.
 
 
 

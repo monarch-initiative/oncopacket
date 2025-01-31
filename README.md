@@ -1,4 +1,4 @@
-# oncoexporter
+# oncopacket
 
 [![Build status](https://github.com/monarch-initiative/oncopacket/workflows/CI/badge.svg)](https://github.com/monarch-initiative/oncopacket/actions/workflows/python_ci.yml)
 

@@ -171,9 +171,6 @@ c2p_env/
 
 *.pkl
 *.tsv
-!src/oncoexporter/ncit_mapping_files/*.tsv
-!src/oncoexporter/ncit_mapping_files/*.csv
-
 #*.tar.gz
 
 

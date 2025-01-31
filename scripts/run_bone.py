@@ -13,7 +13,7 @@ fetch_rows( table='subject', match_all=[ 'primary_disease_type = *duct*', 'sex =
 fetch_rows( table='researchsubject', match_all=[ 'primary_diagnosis_site = NULL' ] )
 '''
 ######   Input parameters  ########
-table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=True)
+table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=False)
 
 Query = {'match_any': ['primary_diagnosis_site = *bone*',
                        'primary_diagnosis_site = *osseous*'],

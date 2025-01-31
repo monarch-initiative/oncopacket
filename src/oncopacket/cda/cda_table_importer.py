@@ -1,11 +1,19 @@
 import os
+
 #from cdapython import Q
 from cdapython import tables, columns, column_values, fetch_rows, summary_counts # updated CDA 
 import phenopackets as PPkt
+
 import typing
 import pandas as pd
 import pickle
 import re
+
+from datetime import datetime
+from tqdm import tqdm
+
+from cdapython import fetch_rows
+import phenopackets as PPkt
 
 from .cda_disease_factory import CdaDiseaseFactory
 from .cda_importer import CdaImporter
@@ -15,9 +23,11 @@ from .cda_biosample_factory import CdaBiosampleFactory
 from .cda_mutation_factory import CdaMutationFactory
 from ._gdc import GdcService
 from .cda_medicalaction_factory import make_cda_medicalaction
+
 from tqdm import tqdm
 
 from datetime import datetime
+
 
 #class CdaTableImporter(CdaImporter[Q]):
 class CdaTableImporter(CdaImporter[fetch_rows]):
@@ -87,7 +97,9 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
                 individual_df = pickle.load(cachehandle)
         else:
             print(f"\tcalling CDA function")
+
             individual_df = callback_fxn()
+
             if self._use_cache:
                 print(f"Creating cached dataframe as {fpath_cache}")
                 with open(fpath_cache, 'wb') as f:
@@ -105,6 +117,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         print("\nGetting subject df...")
         callable = lambda: fetch_rows( table='subject', **q, provenance=True )
         subject_df = self._get_cda_df(callable, f"{cohort_name}_individual_df.pkl")
+
         subject_df = subject_df.drop(columns=['subject_data_source_id'], axis=1)
         subject_df = subject_df.drop_duplicates()
         print("obtained subject_df")

@@ -2,7 +2,7 @@ import unittest
 
 import pandas as pd
 
-from oncoexporter.cda import CdaBiosampleFactory
+from oncopacket.cda import CdaBiosampleFactory
 
 cols = ['specimen_id', 'specimen_associated_project',
        'days_to_collection', 'primary_disease_type', 'anatomical_site',

@@ -1,7 +1,7 @@
 import pandas as pd
 import pytest
 
-from oncoexporter.cda.mapper.op_diagnosis_mapper import OpDiagnosisMapper
+from oncopacket.cda.mapper.op_diagnosis_mapper import OpDiagnosisMapper
 
 
 class TestOpDiagnosisMapper:

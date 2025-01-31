@@ -2,7 +2,7 @@ import typing
 
 import pytest
 
-from oncoexporter.cda import CdaFactory
+from oncopacket.cda import CdaFactory
 
 
 @pytest.mark.parametrize('val, expected',

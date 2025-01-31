@@ -1,5 +1,5 @@
 import pytest
-from oncoexporter.cda import GdcService
+from oncopacket.cda import GdcService
 
 
 @pytest.mark.skip('Requires internet connection')

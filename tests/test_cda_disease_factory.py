@@ -7,8 +7,8 @@ import phenopackets as pp
 import pytest
 
 
-from oncoexporter.cda import CdaDiseaseFactory
-from oncoexporter.cda.mapper import OpDiagnosisMapper
+from oncopacket.cda import CdaDiseaseFactory
+from oncopacket.cda.mapper import OpDiagnosisMapper
 
 
 MERGED_DIAG_RESEARCH_DF_FILE = os.path.join(os.path.dirname(__file__), 'data', 'merged_diagnosis_researchsubject_tiny.tsv') # not used
@@ -75,7 +75,7 @@ class TestCdaDiseaseFactory:
 
         assert len(disease.disease_stage) == 1
         assert disease.disease_stage[0].label == 'Stage II'
-        assert disease.disease_stage[0].id == 'NCIT:C28054' 
+        assert disease.disease_stage[0].id == 'NCIT:C28054'
 
         # TODO: these assertions were previously part of the test suite.
         #  However, I am unsure if the TNM info is present in the `row` content.
@@ -128,7 +128,7 @@ class TestCdaDiseaseFactory:
             ('CPTAC.C3L-01672', STAGE_IIIA),  # IIIA
             ('CPTAC.C3L-00898', STAGE_IIIB),  # IIIB
             ('CPTAC.C3L-01913', STAGE_IIIC1),
-            ('CPTAC.C3L-05849', STAGE_IIIC2), 
+            ('CPTAC.C3L-05849', STAGE_IIIC2),
             ('CPTAC.C3L-01277', STAGE_IV),    # IV
             ('CPTAC.C3L-02894', STAGE_IVB),    # Stage IA
             #('s9', STAGE_IB),    # Stage IB
@@ -150,7 +150,7 @@ class TestCdaDiseaseFactory:
             expected_oc.label = expected_ncit_ontology[1]
 
             for this_term in disease_obj.disease_stage:
-                print(this_term) 
+                print(this_term)
             # check that full ontology term is there, both id and label
             assert any([this_term == expected_oc for this_term in disease_obj.disease_stage]), \
                 f"Expected ontology term {expected_oc.id} {expected_oc.label}\n" \

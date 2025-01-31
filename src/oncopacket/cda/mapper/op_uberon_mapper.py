@@ -8,16 +8,16 @@ import phenopackets as PPkt
 class OpUberonMapper(OpMapper):
     """
     A simple mapper for string representing anatomical locations to UBERON terms.
-    UPDATE: January 28, 2025 
+    UPDATE: January 28, 2025
         - The primary_diagnosis_site appears to include lower case now (e.g. brain instead of Brain)
-        
+
     TODO -- replace this with file based version covering all of the strings we need in CDA
     """
 
     def __init__(self):
         """
         This is a simple map from the 'primary_diagnosis_site = row["primary_diagnosis_site"]' field of the diagnosis row
-        
+
         Not sure how to deal with multiple sites that are listed in one entry
         """
         super().__init__(('primary_diagnosis_site',))
@@ -47,6 +47,7 @@ class OpUberonMapper(OpMapper):
             "Lung, NOS": "lung",
             "cervix uteri": "uterine cervix",
             "cervix Uteri": "uterine cervix",
+            "Cervix Uteri": "uterine cervix",
             "cervix Uteri, Unknown": "uterine cervix",
             "cervix": "uterine cervix",
             "Endocervix": "endocervix",
@@ -61,10 +62,10 @@ class OpUberonMapper(OpMapper):
             "Overlapping lesion of lung": "lower respiratory tract",
             "Lung/bronchus": "lower respiratory tract",
             "Lung/bronchus, Unknown": "lower respiratory tract",
-            "breast": "breast", 
+            "breast": "breast",
             "breast, NOS": "breast",
             "breast, Unknown": "breast",
-            "bone marrow": "bone marrow", 
+            "bone marrow": "bone marrow",
             "bone Marrow": "bone marrow",
             "bones, joints and articular cartilage of other and unspecified sites": "bone",
             "bones, joints and articular cartilage of limbs": "bone",
@@ -136,7 +137,7 @@ class OpUberonMapper(OpMapper):
         else:
             # TODO -- more robust error handling in final release, but for development fail early
             raise ValueError(f"Could not find UBERON term for primary_site=\"{primary_site}\"")
-        
+
 '''
 Results of using the column_values function as of January 28, 2025
 Command: sites = column_values(column='primary_diagnosis_site')

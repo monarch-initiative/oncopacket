@@ -4,7 +4,7 @@ import pandas as pd
 import phenopackets as PPkt
 import pytest
 
-from oncoexporter.cda import CdaMutationFactory
+from oncopacket.cda import CdaMutationFactory
 
 TESTDATA_FILENAME = os.path.join(os.path.dirname(__file__), 'data', 'mutation_excerpt.tsv')
 

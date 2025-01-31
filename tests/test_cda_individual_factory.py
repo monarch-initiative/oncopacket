@@ -2,7 +2,7 @@ import pandas as pd
 import phenopackets as PPkt
 import pytest
 
-from oncoexporter.cda import CdaIndividualFactory
+from oncopacket.cda import CdaIndividualFactory
 
 
 class TestCdaIndividualFactory:

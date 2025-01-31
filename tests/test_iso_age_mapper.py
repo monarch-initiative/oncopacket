@@ -1,7 +1,7 @@
 
 
 import unittest
-from oncoexporter.cda.mapper.iso8601_mapper import Iso8601Mapper
+from oncopacket.cda.mapper.iso8601_mapper import Iso8601Mapper
 
 
 class TestIsoAgeMapper(unittest.TestCase):

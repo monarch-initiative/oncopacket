@@ -8,11 +8,14 @@ import phenopackets as PPkt
 class OpUberonMapper(OpMapper):
     """
     A simple mapper for string representing anatomical locations to UBERON terms.
+    UPDATE: January 28, 2025
         
     TODO -- replace this with file based version covering all of the strings we need in CDA
     
     UPDATE: January 28, 2025 
         - The primary_diagnosis_site appears to include lower case now (e.g. brain instead of Brain)
+
+    TODO -- replace this with file based version covering all of the strings we need in CDA
         - the site terms now match the UBERON preferred terms, so we don't need an extra step 
           going from the CDA site term to the UBERON preferred term.
         
@@ -25,7 +28,7 @@ class OpUberonMapper(OpMapper):
     def __init__(self):
         """
         This is a simple map from the 'primary_diagnosis_site = row["primary_diagnosis_site"]' field of the diagnosis row
-        
+
         Not sure how to deal with multiple sites that are listed in one entry
         
         1/29/25: _uberon_label_to_id and _site_to_uberon_label_d_orig are obsolete, leaving here for the moment...
@@ -58,6 +61,7 @@ class OpUberonMapper(OpMapper):
             "Lung, NOS": "lung",
             "cervix uteri": "uterine cervix",
             "cervix Uteri": "uterine cervix",
+            "Cervix Uteri": "uterine cervix",
             "cervix Uteri, Unknown": "uterine cervix",
             "cervix": "uterine cervix",
             "Endocervix": "endocervix",
@@ -72,10 +76,10 @@ class OpUberonMapper(OpMapper):
             "Overlapping lesion of lung": "lower respiratory tract",
             "Lung/bronchus": "lower respiratory tract",
             "Lung/bronchus, Unknown": "lower respiratory tract",
-            "breast": "breast", 
+            "breast": "breast",
             "breast, NOS": "breast",
             "breast, Unknown": "breast",
-            "bone marrow": "bone marrow", 
+            "bone marrow": "bone marrow",
             "bone Marrow": "bone marrow",
             "bones, joints and articular cartilage of other and unspecified sites": "bone",
             "bones, joints and articular cartilage of limbs": "bone",

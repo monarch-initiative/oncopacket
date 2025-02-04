@@ -8,10 +8,18 @@ import phenopackets as PPkt
 class OpUberonMapper(OpMapper):
     """
     A simple mapper for string representing anatomical locations to UBERON terms.
-    UPDATE: January 28, 2025 
-        - The primary_diagnosis_site appears to include lower case now (e.g. brain instead of Brain)
         
     TODO -- replace this with file based version covering all of the strings we need in CDA
+    
+    UPDATE: January 28, 2025 
+        - The primary_diagnosis_site appears to include lower case now (e.g. brain instead of Brain)
+        - the site terms now match the UBERON preferred terms, so we don't need an extra step 
+          going from the CDA site term to the UBERON preferred term.
+        
+    Results of using the column_values function as of January 28, 2025
+    Command: sites = column_values(column='primary_diagnosis_site')
+    
+    mapping is in CDA_primary_diagnosis_site_to_uberon.csv (153 terms)
     """
 
     def __init__(self):
@@ -19,6 +27,9 @@ class OpUberonMapper(OpMapper):
         This is a simple map from the 'primary_diagnosis_site = row["primary_diagnosis_site"]' field of the diagnosis row
         
         Not sure how to deal with multiple sites that are listed in one entry
+        
+        1/29/25: _uberon_label_to_id and _site_to_uberon_label_d_orig are obsolete, leaving here for the moment...
+        
         """
         super().__init__(('primary_diagnosis_site',))
         self._uberon_label_to_id = {
@@ -123,177 +134,21 @@ class OpUberonMapper(OpMapper):
             "Thyroid Gland, Unknown": "thyroid gland",
         }
 
+        site_to_uberon = pd.read_csv("oncopacket/src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
+        self._site_to_uberon_code_d = dict(site_to_uberon.values)
+        
     def get_ontology_term(self, row: pd.Series) -> Optional[PPkt.OntologyClass]:
+
         primary_site = row["primary_diagnosis_site"]
 
-
-        if primary_site in self._site_to_uberon_label_d:
+        if primary_site in self._site_to_uberon_code_d:
             # get standard label and UBEROBN id
             ontology_term = PPkt.OntologyClass()
-            ontology_term.id = self._uberon_label_to_id.get(self._site_to_uberon_label_d.get(primary_site))
-            ontology_term.label = self._site_to_uberon_label_d.get(primary_site)
+            ontology_term.id = self._site_to_uberon_code_d.get(primary_site)
+            ontology_term.label = primary_site
             return ontology_term
         else:
             # TODO -- more robust error handling in final release, but for development fail early
             raise ValueError(f"Could not find UBERON term for primary_site=\"{primary_site}\"")
         
-'''
-Results of using the column_values function as of January 28, 2025
-Command: sites = column_values(column='primary_diagnosis_site')
 
-primary_diagnosis_site	count
-	66419
-chest	28221
-breast	21203
-lung	12289
-immune system	9029
-brain	6383
-kidney	5085
-colon	4676
-ovary	3893
-prostate gland	3284
-pancreas	2931
-uterus	2547
-thyroid gland	1715
-stomach	1577
-skin of body	1464
-lymph node	1207
-uterine cervix	1080
-hepatobiliary system	1070
-adrenal gland	1068
-craniocervical region	1023
-central nervous system	978
-liver	956
-body of uterus	951
-esophagus	876
-rectum	618
-testis	465
-thoracic cavity element	388
-ear	368
-upper esophagus	346
-appendicular skeleton	325
-thymus	315
-hypodermis	293
-limb bone	256
-pelvic region of trunk	246
-sublingual gland	221
-larynx	166
-digestive system	153
-gallbladder	149
-nervous system	143
-abdomen	142
-tongue	137
-cerebellum	133
-head	128
-female reproductive organ	106
-intestine	97
-biliary system	92
-eye	90
-rectosigmoid junction	90
-anal canal	81
-nasopharynx	71
-urinary bladder	71
-small intestine	70
-bone tissue	69
-brainstem	66
-mouth	62
-renal system	57
-spinal cord	57
-mouth floor	56
-bile duct	51
-limb	51
-cardiac ventricle	48
-tonsil	48
-frontal lobe	46
-temporal lobe	39
-posterior part of tongue	28
-parietal lobe	23
-pineal tract	23
-telencephalon	22
-orbit of skull	21
-hindlimb	16
-oropharynx	16
-vagina	16
-ureter	15
-mammary gland	13
-penis	13
-endocrine gland	12
-mammalian vulva	12
-nasal cavity	12
-parotid gland	12
-gingiva	11
-occipital lobe	11
-blood	10
-upper limb segment	10
-hypopharynx	9
-lip	9
-trachea	9
-meningeal cluster	8
-thoracic segment of trunk	8
-inguinal lymph node	7
-renal pelvis	7
-retina	7
-pituitary gland	6
-roof of mouth	6
-hindlimb long bone	5
-mandible	5
-skin of hip	5
-cranium	4
-eyelid	4
-facial lymph node	4
-lower lobe of lung	4
-peritoneum	4
-scrotum	4
-bone of pelvis	3
-mediastinum	3
-middle ear	3
-optic disc	3
-pleura	3
-posterior mediastinum	3
-vermiform appendix	3
-vertebral column	3
-adrenal cortex	2
-alimentary part of gastrointestinal system	2
-anterior mediastinum	2
-axial skeleton plus cranial skeleton	2
-bone marrow	2
-endocervix	2
-ethmoid sinus	2
-head or neck skin	2
-male reproductive system	2
-multicellular organism	2
-pharynx	2
-respiratory system	2
-soft palate	2
-spleen	2
-tail of pancreas	2
-thoracic skeleton	2
-urethra	2
-axillary lymph node	1
-buccal mucosa	1
-caecum	1
-chest wall	1
-cranial nerve	1
-craniopharyngeal canal	1
-duodenum	1
-epididymis	1
-fallopian tube	1
-forelimb nerve	1
-forelimb skin	1
-hard palate	1
-head of pancreas	1
-heart	1
-jejunum	1
-lateral wall of nasopharynx	1
-maxillary sinus	1
-meninx of spinal cord	1
-pancreatic duct	1
-paranasal sinus	1
-pleural cavity	1
-shoulder	1
-sigmoid colon	1
-skin of trunk	1
-submandibular gland	1
-supraglottic part of larynx	1
-urachus	1
-'''

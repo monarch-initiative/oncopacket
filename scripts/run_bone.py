@@ -15,9 +15,11 @@ fetch_rows( table='researchsubject', match_all=[ 'primary_diagnosis_site = NULL'
 ######   Input parameters  ########
 table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=False)
 
+# see ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv for a list of primary_diagnosis_site terms available in CDA
+
 Query = {'match_any': ['primary_diagnosis_site = *bone*',
-                       'primary_diagnosis_site = *osseous*'],
-         'data_source': 'GDC'}
+                       'primary_diagnosis_site = *skeleton*'], # 'primary_diagnosis_site = *osseous*' doesn't exist in CDA
+         'data_source': 'GDC'} # getting no bone samples from GDC? 1/28/25
 cohort_name = 'Bone'
 ####################################
 

@@ -1,0 +1,154 @@
+﻿primary_diagnosis_site,uberon_code
+abdomen,UBERON:0003684
+adrenal cortex,UBERON:0001235
+adrenal gland,UBERON:0002369
+alimentary part of gastrointestinal system,UBERON:0005409
+anal canal,UBERON:0000159
+anterior mediastinum,UBERON:0008820
+appendicular skeleton,UBERON:0002091
+axial skeleton plus cranial skeleton,UBERON:0005944
+axillary lymph node,UBERON:0001097
+bile duct,UBERON:0002394
+biliary system,UBERON:0002294
+blood,UBERON:0000178
+body of uterus,UBERON:0009853
+bone marrow,UBERON:0002371
+bone of pelvis,UBERON:0012179
+bone tissue,UBERON:0002481
+brain,UBERON:0000955
+brainstem,UBERON:0002298
+breast,UBERON:0000310
+buccal mucosa,UBERON:0006956
+caecum,UBERON:0001153
+cardiac ventricle,UBERON:0002082
+central nervous system,UBERON:0001017
+cerebellum,UBERON:0002037
+chest,UBERON:0001443
+chest wall,UBERON:0016435
+colon,UBERON:0001155
+cranial nerve,UBERON:0001785
+craniocervical region,UBERON:0007811
+craniopharyngeal canal,UBERON:0016881
+cranium,UBERON:0003128
+digestive system,UBERON:0001007
+duodenum,UBERON:0002114
+ear,UBERON:0001690
+endocervix,UBERON:0000458
+endocrine gland,UBERON:0002368
+epididymis,UBERON:0001301
+esophagus,UBERON:0001043
+ethmoid sinus,UBERON:0002453
+eye,UBERON:0000970
+eyelid,UBERON:0001711
+facial lymph node,UBERON:0015871
+fallopian tube,UBERON:0003889
+female reproductive organ,UBERON:0003134
+forelimb nerve,UBERON:0003441
+forelimb skin,UBERON:0003531
+frontal lobe,UBERON:0016525
+gallbladder,UBERON:0002110
+gingiva,UBERON:0001828
+hard palate,UBERON:0003216
+head,UBERON:0000033
+head of pancreas,UBERON:0001069
+head or neck skin,UBERON:0012180
+heart,UBERON:0000948
+hepatobiliary system,UBERON:0002423
+hindlimb,UBERON:0002103
+hindlimb long bone,UBERON:0003608
+hypodermis,UBERON:0002072
+hypopharynx,UBERON:0001051
+immune system,UBERON:0002405
+inguinal lymph node,UBERON:0001542
+intestine,UBERON:0000160
+jejunum,UBERON:0002115
+kidney,UBERON:0002113
+larynx,UBERON:0001737
+lateral wall of nasopharynx,UBERON:0035383
+limb,UBERON:0002101
+limb bone,UBERON:0002428
+lip,UBERON:0001833
+liver,UBERON:0002107
+lower lobe of lung,UBERON:0008949
+lung,UBERON:0002048
+lymph node,UBERON:0000029
+male reproductive system,UBERON:0000079
+mammalian vulva,UBERON:0000997
+mammary gland,UBERON:0001911
+mandible,UBERON:0001684
+maxillary sinus,UBERON:0001764
+mediastinum,UBERON:0003728
+meningeal cluster,UBERON:0010743
+meninx of spinal cord,UBERON:0003292
+middle ear,UBERON:0001756
+mouth,UBERON:0000165
+mouth floor,UBERON:0003679
+multicellular organism,UBERON:0000468
+nasal cavity,UBERON:0001707
+nasopharynx,UBERON:0001728
+nervous system,UBERON:0001016
+occipital lobe,UBERON:0002021
+optic disc,UBERON:0001783
+orbit of skull,UBERON:0001697
+oropharynx,UBERON:0001729
+ovary,UBERON:0000992
+pancreas,UBERON:0001264
+pancreatic duct,UBERON:0007329
+paranasal sinus,UBERON:0001825
+parietal lobe,UBERON:0001872
+parotid gland,UBERON:0001831
+pelvic region of trunk,UBERON:0002355
+penis,UBERON:0000989
+peritoneum,UBERON:0002358
+pharynx,UBERON:0006562
+pineal tract,UBERON:0034715
+pituitary gland,UBERON:0000007
+pleura,UBERON:0000977
+pleural cavity,UBERON:0002402
+posterior mediastinum,UBERON:0008822
+posterior part of tongue,UBERON:0010033
+prostate gland,UBERON:0002367
+rectosigmoid junction,UBERON:0036214
+rectum,UBERON:0001052
+renal pelvis,UBERON:0001224
+renal system,UBERON:0001008
+respiratory system,UBERON:0001004
+retina,UBERON:0000966
+roof of mouth,UBERON:0007375
+scrotum,UBERON:0001300
+shoulder,UBERON:0001467
+sigmoid colon,UBERON:0001159
+skin of body,UBERON:0000014
+skin of hip,UBERON:0001554
+skin of trunk,UBERON:0001085
+small intestine,UBERON:0002108
+soft palate,UBERON:0001733
+spinal cord,UBERON:0002240
+spleen,UBERON:0002106
+stomach,UBERON:0000945
+sublingual gland,UBERON:0001832
+submandibular gland,UBERON:0001736
+supraglottic part of larynx,UBERON:0036263
+tail of pancreas,UBERON:0001151
+telencephalon,UBERON:0001893
+temporal lobe,UBERON:0001871
+testis,UBERON:0000473
+thoracic cavity element,UBERON:0005178
+thoracic segment of trunk,UBERON:0000915
+thoracic skeleton,UBERON:0014477
+thymus,UBERON:0002370
+thyroid gland,UBERON:0002046
+tongue,UBERON:0001723
+tonsil,UBERON:0002372
+trachea,UBERON:0003126
+upper esophagus,UBERON:0013472
+upper limb segment,UBERON:0008785
+urachus,UBERON:0002068
+ureter,UBERON:0000056
+urethra,UBERON:0000057
+urinary bladder,UBERON:0001255
+uterine cervix,UBERON:0000002
+uterus,UBERON:0000995
+vagina,UBERON:0000996
+vermiform appendix,UBERON:0001154
+vertebral column,UBERON:0001130

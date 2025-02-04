@@ -159,11 +159,13 @@ class OpDiagnosisMapper(OpMapper):
         self._primary_diagnosis_site_warning_count = defaultdict(int)
 
     def get_ontology_term(self, row: pd.Series) -> typing.Optional[pp.OntologyClass]:
+
         primary_diagnosis = replace_with_empty_str_if_none(row["primary_diagnosis"])
         primary_diagnosis_condition = replace_with_empty_str_if_none(row["primary_diagnosis_condition"])
         primary_diagnosis_site = replace_with_empty_str_if_none(row["primary_diagnosis_site"])
 
         # First, search using the composite key.
+        #print("get_ontology_term diagnosis key:", primary_diagnosis, primary_diagnosis_condition, primary_diagnosis_site)
         key = get_cda_key(primary_diagnosis, primary_diagnosis_condition, primary_diagnosis_site)
         if key in self._ncit_map:
             return self._ncit_map.get(key)
@@ -209,4 +211,8 @@ class OpDiagnosisMapper(OpMapper):
 
 
 def replace_with_empty_str_if_none(val: typing.Optional[str]) -> str:
+    # for some reason some rows have NaNs
+    val = str(val)
+    if val == 'nan':
+        return '' 
     return val if val is not None else ''

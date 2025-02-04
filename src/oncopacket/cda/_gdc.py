@@ -118,7 +118,7 @@ class GdcService:
 
         mutation_details = []
         for mutation in mutations:
-            print(mutation)
+            #print(mutation)
             vi = self._map_mutation_to_variant_interpretation(mutation)
             mutation_details.append(vi)
 
@@ -161,7 +161,7 @@ class GdcService:
         return vital_status_obj
 
     def fetch_stage(self, subject_id: str) -> str:
-
+        # not used -> using fetch_stage_dict below in cda_table_importer.py
         stage = 'Unknown'
         stage_data = self._fetch_data_from_gdc(self._cases_url, subject_id, self._case_fields)
 
@@ -188,13 +188,17 @@ class GdcService:
         Note: diagnoses.tumor_stage is empty, with 4 other options available
             - not clear if they conflict with each other
             - ajcc_pathologic_stage has the highest number so we use that initially 
+            - TODO: get alternative stage if ajcc_pathologic_stage not present
         '''
         
         fields = [
              "submitter_id",
              "cases.submitter_id",
-             "diagnoses.ajcc_pathologic_stage" # one of 4 options (ajcc_clinical, ann_arbor_pathologic, ann_arbor_clinical)
-         ]
+             "diagnoses.ajcc_pathologic_stage"
+             #"diagnoses.ajcc_clinical_stage",        # not used
+             #"diagnoses.ann_arbor_pathologic_stage", # not used
+             #"diagnoses.ann_arbor_clinical_stage"    # not used
+        ]
         fields = ",".join(fields)
 
         # A POST is used, so the filter parameters can be passed directly as a Dict object.
@@ -207,20 +211,14 @@ class GdcService:
         # The parameters are passed to 'json' rather than 'params' in this case
         response = requests.post(self._cases_url, headers = {"Content-Type": "application/json"}, json = params)
         stage_df = pd.read_csv(StringIO(response.content.decode("utf-8")), sep='\t')
-        stage_df.columns = ['ajcc0', 'ajcc1', 'ajcc2','id','submitter_id']
+        # this must be altered if including other stages in the fields:
+        stage_df.columns = ['ajcc0', 'ajcc1', 'ajcc2','id','submitter_id'] # submitter_id is the subject ID
         #stage_df.head()
         #stage_df.shape
         stage_dict = dict(zip(stage_df.submitter_id, stage_df.ajcc0))
         
         return stage_dict
     
-    #def fetch_stage_df(self, subj_id_list) -> pd.DataFrame:
-    #    '''
-    #    Get df from GDC API with stages for input list of subject IDs
-    #    '''
-    #    stage_data = self._fetch_data_from_gdc(self._cases_url, subj_id_list, self._case_fields)
-
-    #    return stage_data
     def _map_mutation_to_variant_interpretation(self, mutation) -> pp.VariantInterpretation:
 
         # TODO: 't_depth', 't_ref_count', 't_alt_count', 'n_depth', 'n_ref_count', 'n_alt_count'
@@ -237,7 +235,7 @@ class GdcService:
         for csq in mutation['consequence']:
 
             expression_list = self._map_consequence_to_expression(csq)# GdcMutationService._map_consequence_to_expression(csq)
-            gene_descriptor = GdcMutationService._map_consequence_to_gene_descriptor(csq)
+            gene_descriptor = GdcService._map_consequence_to_gene_descriptor(csq)
 
             if expression_list is not None:
                 vd.expressions.extend(expression_list)

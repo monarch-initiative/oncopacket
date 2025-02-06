@@ -3,6 +3,7 @@ import warnings
 from collections import defaultdict
 from importlib.resources import open_text # deprecated
 from importlib.resources import files
+import pathlib
 
 import pandas as pd
 import phenopackets as pp
@@ -94,22 +95,39 @@ class OpDiagnosisMapper(OpMapper):
         )
         frames = []
         for tissue in tissue_tables:
+
+            '''
             # open_text deprecated, need to switch to files()
             # https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy
             #eml = files('email.tests.data').joinpath('message.eml').read_text()
-            with open_text(module_with_tissue_mapping_tables, tissue) as fh:
+            
+            from importlib.resources import files
+            import pathlib
+
+            # Assuming your package is named "my_package" and the file is "data.txt":
+            data_path = files("my_package").joinpath("data.txt")
+
+            with open(data_path, "r") as file_handle:
+                # Read the file contents
+                contents = file_handle.read()
+            '''
+            data_path = files(module_with_tissue_mapping_tables, tissue)    
+            #with open_text(module_with_tissue_mapping_tables, tissue) as fh:
+            with open(data_path, 'r') as fh:
                 df = pd.read_csv(
                     fh,
                     converters=CONVERTERS,
                 )
                 frames.append(df)
+                
         ncit_map_df = pd.concat(frames)
         ncit_map = prepare_ncit_map(ncit_map_df)
 
+        # uberon_map not used
         module_with_uberon_table = 'oncopacket.ncit_mapping_files'
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(
             module_with_uberon_table,
-            'uberon_to_ncit_diagnosis.tsv',
+            'uberon_to_ncit_diagnosis.tsv', # only has uterine cervix, cervix, lung in it
         )
 
         return OpDiagnosisMapper(ncit_map, uberon_map)
@@ -130,6 +148,7 @@ class OpDiagnosisMapper(OpMapper):
             )
         ncit_map = prepare_ncit_map(ncit_map_df)
 
+        # uberon_map not used
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(module, 'uberon_to_ncit_diagnosis.tsv')
 
         return OpDiagnosisMapper(ncit_map, uberon_map)

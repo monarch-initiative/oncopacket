@@ -8,21 +8,17 @@ import phenopackets as PPkt
 class OpUberonMapper(OpMapper):
     """
     A simple mapper for string representing anatomical locations to UBERON terms.
-    UPDATE: January 28, 2025
-        
-    TODO -- replace this with file based version covering all of the strings we need in CDA
-    
+            
     UPDATE: January 28, 2025 
         - The primary_diagnosis_site appears to include lower case now (e.g. brain instead of Brain)
 
-    TODO -- replace this with file based version covering all of the strings we need in CDA
         - the site terms now match the UBERON preferred terms, so we don't need an extra step 
           going from the CDA site term to the UBERON preferred term.
         
     Results of using the column_values function as of January 28, 2025
     Command: sites = column_values(column='primary_diagnosis_site')
-    
     mapping is in CDA_primary_diagnosis_site_to_uberon.csv (153 terms)
+
     """
 
     def __init__(self):
@@ -137,8 +133,17 @@ class OpUberonMapper(OpMapper):
             "Thyroid gland, Unknown": "thyroid gland",
             "Thyroid Gland, Unknown": "thyroid gland",
         }
-
-        site_to_uberon = pd.read_csv("oncopacket/src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
+        
+        # directly go from site to uberon code
+        #module_with_tissue_mapping_tables = 'oncopacket.ncit_mapping_files.cda_to_ncit_tissue_wise_mappings'
+        #data_path = files(module_with_tissue_mapping_tables, tissue)    
+        #    with open(data_path, 'r') as fh:
+        #        df = pd.read_csv(
+        #            fh,
+        #            converters=CONVERTERS,
+        #        )
+        #    frames.append(df)
+        site_to_uberon = pd.read_csv("../src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
         self._site_to_uberon_code_d = dict(site_to_uberon.values)
         
     def get_ontology_term(self, row: pd.Series) -> Optional[PPkt.OntologyClass]:

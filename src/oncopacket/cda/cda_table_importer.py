@@ -65,7 +65,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         #self._page_size = page_size # not in new CDA 
 
         self._individual_factory = CdaIndividualFactory()
-        self._disease_factory = disease_factory # why is disease_factory set up differently than the others?
+        self._disease_factory = disease_factory 
         self._specimen_factory = CdaBiosampleFactory()
         self._mutation_factory = CdaMutationFactory()
         self._gdc_service = GdcService(timeout=gdc_timeout)

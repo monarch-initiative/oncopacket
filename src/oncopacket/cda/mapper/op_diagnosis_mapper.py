@@ -111,7 +111,7 @@ class OpDiagnosisMapper(OpMapper):
                 # Read the file contents
                 contents = file_handle.read()
             '''
-            data_path = files(module_with_tissue_mapping_tables, tissue)    
+            data_path = files(module_with_tissue_mapping_tables).joinpath(tissue)    
             #with open_text(module_with_tissue_mapping_tables, tissue) as fh:
             with open(data_path, 'r') as fh:
                 df = pd.read_csv(
@@ -123,17 +123,20 @@ class OpDiagnosisMapper(OpMapper):
         ncit_map_df = pd.concat(frames)
         ncit_map = prepare_ncit_map(ncit_map_df)
 
+        '''
         # uberon_map not used
         module_with_uberon_table = 'oncopacket.ncit_mapping_files'
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(
             module_with_uberon_table,
             'uberon_to_ncit_diagnosis.tsv', # only has uterine cervix, cervix, lung in it
         )
-
-        return OpDiagnosisMapper(ncit_map, uberon_map)
+        '''
+        
+        return OpDiagnosisMapper(ncit_map) # uberon_map
 
     @staticmethod
     def default_mapper():
+        # not used
         warnings.warn(
             'Use `multitissue_mapper()` instead',
             DeprecationWarning, stacklevel=2,
@@ -159,8 +162,9 @@ class OpDiagnosisMapper(OpMapper):
             uberon_df = pd.read_csv(fh, sep='\t')
         return prepare_uberon(uberon_df)
 
-    def __init__(self, ncit_map: typing.Mapping[str, pp.OntologyClass],
-                 uberon_map: typing.Mapping[str, pp.OntologyClass]):
+    def __init__(self, ncit_map: typing.Mapping[str, pp.OntologyClass]):
+        #uberon_map: typing.Mapping[str, pp.OntologyClass]
+        
         """
         Our strategy is to map the three fields
         primary_diagnosis	primary_diagnosis_condition	primary_diagnosis_site	to a single string that we use
@@ -173,7 +177,7 @@ class OpDiagnosisMapper(OpMapper):
         super().__init__(('primary_diagnosis', 'primary_diagnosis_condition', 'primary_diagnosis_site'))
 
         self._ncit_map = ncit_map
-        self._uberon_map = uberon_map
+        #self._uberon_map = uberon_map
         self._compound_key_warning_count = defaultdict(int)
         self._primary_diagnosis_site_warning_count = defaultdict(int)
 
@@ -191,14 +195,14 @@ class OpDiagnosisMapper(OpMapper):
         else:
             error_key = f"{primary_diagnosis}---{primary_diagnosis_condition}---{primary_diagnosis_site}"
             self._compound_key_warning_count[error_key] += 1
-
+        '''
         # Next, lookup by the diagnosis site to provide at least a general neoplasm type.
         pds_lower = primary_diagnosis_site.lower()
         if pds_lower in self._uberon_map:
             return self._uberon_map.get(pds_lower)
         else:
             self._primary_diagnosis_site_warning_count[primary_diagnosis_site] += 1
-
+        '''
         # Otherwise fall back to the most general NCIT neoplasm term.
         oterm = pp.OntologyClass()
         oterm.id = "NCIT:C3262"

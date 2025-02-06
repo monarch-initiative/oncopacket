@@ -3,6 +3,7 @@ from typing import Optional
 from .op_mapper import OpMapper
 import pandas as pd
 import phenopackets as PPkt
+from importlib.resources import files
 
 
 class OpUberonMapper(OpMapper):
@@ -143,7 +144,11 @@ class OpUberonMapper(OpMapper):
         #            converters=CONVERTERS,
         #        )
         #    frames.append(df)
-        site_to_uberon = pd.read_csv("../src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
+        module_with_tissue_mapping_tables = 'oncopacket.ncit_mapping_files'
+        data_path = files(module_with_tissue_mapping_tables).joinpath("CDA_primary_diagnosis_site_to_uberon.csv")    
+        with open(data_path, 'r') as fh:
+                site_to_uberon = pd.read_csv(fh)
+        #site_to_uberon = pd.read_csv("../src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
         self._site_to_uberon_code_d = dict(site_to_uberon.values)
         
     def get_ontology_term(self, row: pd.Series) -> Optional[PPkt.OntologyClass]:

@@ -136,23 +136,14 @@ class OpUberonMapper(OpMapper):
         }
         
         # directly go from site to uberon code
-        #module_with_tissue_mapping_tables = 'oncopacket.ncit_mapping_files.cda_to_ncit_tissue_wise_mappings'
-        #data_path = files(module_with_tissue_mapping_tables, tissue)    
-        #    with open(data_path, 'r') as fh:
-        #        df = pd.read_csv(
-        #            fh,
-        #            converters=CONVERTERS,
-        #        )
-        #    frames.append(df)
         module_with_tissue_mapping_tables = 'oncopacket.ncit_mapping_files'
         data_path = files(module_with_tissue_mapping_tables).joinpath("CDA_primary_diagnosis_site_to_uberon.csv")    
         with open(data_path, 'r') as fh:
                 site_to_uberon = pd.read_csv(fh)
-        #site_to_uberon = pd.read_csv("../src/oncopacket/ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv")
         self._site_to_uberon_code_d = dict(site_to_uberon.values)
         
     def get_ontology_term(self, row: pd.Series) -> Optional[PPkt.OntologyClass]:
-
+        #print(row)
         primary_site = row["primary_diagnosis_site"]
 
         if primary_site in self._site_to_uberon_code_d:
@@ -163,6 +154,6 @@ class OpUberonMapper(OpMapper):
             return ontology_term
         else:
             # TODO -- more robust error handling in final release, but for development fail early
-            raise ValueError(f"Could not find UBERON term for primary_site=\"{primary_site}\"")
-        
+            #raise ValueError(f"Could not find UBERON term for primary_site=\"{primary_site}\"")
+            print(f"Could not find UBERON term for primary_site=\"{primary_site}\"")
 

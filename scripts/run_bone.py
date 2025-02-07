@@ -19,7 +19,7 @@ table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=False)
 
 Query = {'match_any': ['primary_diagnosis_site = *bone*',
                        'primary_diagnosis_site = *skeleton*'], # 'primary_diagnosis_site = *osseous*' doesn't exist in CDA
-         'data_source': 'GDC'} # getting no bone samples from GDC? 1/28/25
+         'data_source': 'GDC'} 
 cohort_name = 'Bone'
 ####################################
 

@@ -17,8 +17,7 @@ table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=False)
 
 # see ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv for a list of primary_diagnosis_site terms available in CDA
 
-Query = {'match_any': ['primary_diagnosis_site = *colon*',
-                       'primary_diagnosis_site = *colonic*'],
+Query = {'match_any': ['primary_diagnosis_site = *colon*', 'primary_diagnosis_site = *rect*'], # covers rectum and rectosigmoid junction
          'data_source': 'GDC'}
 cohort_name = 'Colon'
 ####################################

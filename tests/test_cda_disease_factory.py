@@ -56,7 +56,7 @@ class TestCdaDiseaseFactory:
             'researchsubject_identifier': "[{'system': 'GDC', 'field_name': 'case.case_id', 'value': '3f92c203-a319-46a6-a627-8027070961fc'}, {'system': 'GDC', 'field_name': 'case.submitter_id', 'value': 'C3L-04759'}]",
             'member_of_research_project': 'CPTAC-3',
             'primary_diagnosis_condition': 'Lung Adenocarcinoma',
-            'primary_diagnosis_site': 'Lung',
+            'primary_diagnosis_site': 'lung',
         })
 
     def test_parse_ok_row(self, factory: CdaDiseaseFactory,

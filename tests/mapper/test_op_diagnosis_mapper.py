@@ -14,7 +14,7 @@ class TestOpDiagnosisMapper:
     @pytest.mark.parametrize(
         'primary_diagnosis, primary_diagnosis_condition, primary_diagnosis_site, expected_id, expected_label',
         [
-            ('', '', 'Lung', 'NCIT:C3200', 'Lung Neoplasm'),
+            ('', '', 'Lung', 'NCIT:C3200', 'Neoplasm'),
             ('Adenocarcinoma', 'Lung Adenocarcinoma', 'Lung', 'NCIT:C3512', 'Lung Adenocarcinoma'),
             ('Acantholytic squamous cell carcinoma', 'Lung Squamous Cell Carcinoma', 'Lung', 'NCIT:C3493', 'Lung Squamous Cell Carcinoma'),
             ('Adenocarcinoma, NOS', 'Lung Adenocarcinoma', 'Lung', 'NCIT:C3512', 'Lung Adenocarcinoma'),

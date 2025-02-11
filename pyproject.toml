@@ -52,3 +52,6 @@ bugtracker = "https://github.com/monarch-initiative/oncopacket/issues"
 
 [tool.setuptools.dynamic]
 version = { attr = "oncopacket.__version__" }
+
+[tool.setuptools.package-data]
+"oncopacket.ncit_mapping_files" = ["*.csv"]

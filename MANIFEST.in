@@ -1,3 +1,4 @@
 # Include the TSV mapping files.
 include src/oncopacket/ncit_mapping_files/*.tsv
 include src/oncopacket/ncit_mapping_files/cda_to_ncit_tissue_wise_mappings/*.csv
+include src/oncopacket/ncit_mapping_files/*.csv

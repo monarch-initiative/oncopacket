@@ -30,7 +30,7 @@ class CdaDiseaseFactory(CdaFactory):
 
     def __init__(self, disease_term_mapper: OpMapper):
         self._gdc_service = GdcService()
-        self._disease_term_mapper = disease_term_mapper
+        self._disease_term_mapper = disease_term_mapper # called with OpDiagnosisMapper.multitissue_mapper() in _configure.py
         self._stage_mapper = OpDiseaseStageMapper()
         self._uberon_mapper = OpUberonMapper()
 

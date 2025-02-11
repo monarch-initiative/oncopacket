@@ -65,7 +65,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         #self._page_size = page_size # not in new CDA 
 
         self._individual_factory = CdaIndividualFactory()
-        self._disease_factory = disease_factory # why is disease_factory set up differently than the others?
+        self._disease_factory = disease_factory 
         self._specimen_factory = CdaBiosampleFactory()
         self._mutation_factory = CdaMutationFactory()
         self._gdc_service = GdcService(timeout=gdc_timeout)
@@ -111,13 +111,13 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         subject_df = self._get_cda_df(callable, f"{cohort_name}_individual_df.pkl")
         subject_df = subject_df.drop(columns=['subject_data_source_id'], axis=1)
         subject_df = subject_df.drop_duplicates()
-        print("subject_df dim: ", subject_df.shape)
+        #print("subject_df dim: ", subject_df.shape)
 
-        # filter here for data source
+        # filter here for data source (TODO: deal with multiple sources)
         if 'data_source' in q.keys():
             subject_df = subject_df[subject_df['subject_data_source'] == q['data_source']]
-        print("subject_df filtered dim: ", subject_df.shape)
-        subject_df.to_csv('subject_df.txt', sep='\t')
+        #print("subject_df filtered dim: ", subject_df.shape)
+        #subject_df.to_csv('subject_df.txt', sep='\t')
         print("obtained subject_df")
 
         return subject_df
@@ -130,7 +130,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         rsub_callable = lambda: fetch_rows( table='researchsubject', **q , add_columns=['subject_id'])
         rsub_df = self._get_cda_df(rsub_callable, f"{cohort_name}_researchsubject_df.pkl") 
         print("obtained researchsubject_df")
-        rsub_df.to_csv('rsub_df.txt', sep='\t')
+        #rsub_df.to_csv('rsub_df.txt', sep='\t')
 
         return rsub_df
 
@@ -141,7 +141,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         diagnosis_callable = lambda: fetch_rows( table='diagnosis', **q , add_columns=['subject_id'])
         diagnosis_df = self._get_cda_df(diagnosis_callable, f"{cohort_name}_diagnosis_df.pkl")
         print("obtained diagnosis_df")
-        diagnosis_df.to_csv('diagnosis_df.txt', sep='\t')
+        #diagnosis_df.to_csv('diagnosis_df.txt', sep='\t')
         
         return diagnosis_df
     
@@ -208,20 +208,22 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         #  - disease_factory
         #  - vital_status
         #  - variants
-        print(subject_df.head())
-        print(rsub_df.head())
         sub_rsub_diag_df = subject_df.merge(rsub_df, on='subject_id', how='outer')
         sub_rsub_diag_df = sub_rsub_diag_df.merge(diagnosis_df, on='subject_id', how='outer')
-        sub_rsub_diag_df.to_csv("sub_rsub_diag_df.txt", sep='\t') 
+        #sub_rsub_diag_df.to_csv("sub_rsub_diag_df.txt", sep='\t') 
         print("merged subject-researchsubject-diagnosis df")
-        #print(sub_rsub_diag_df.shape)
-        #sub_rsub_diag_df.dropna(subset=['A'], inplace=True)
+        '''
+        Have a problem with patients that have multiple researchsubject IDs with differing primary diagnosis sites
+        
+        	subject_id	cause_of_death	days_to_birth	days_to_death	ethnicity	race	sex	species	vital_status	researchsubject_id	primary_diagnosis_site
+        0	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	phs003155.TCGA-AG-3881	
+        1	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	TCGA-READ.TCGA-AG-3881	
+        2	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	tcga_read.TCGA-AG-3881.RS	rectum
+        '''
         
         # Now use the CdaFactory classes to transform the information from the DataFrames into
         # components of the GA4GH Phenopacket Schema
         # Add these components one at a time to Phenopacket objects.
-
-        # treatment_factory = TODO
         
         print("\nConverting to Phenopackets...\n")
 
@@ -259,7 +261,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         sub_rsub_diag_df['stage'] = sub_rsub_diag_df['subject_id_short'].map(stage_dict).fillna(sub_rsub_diag_df['stage'])
 
         sub_rsub_diag_df['primary_diagnosis'] = sub_rsub_diag_df['primary_diagnosis'].fillna('') # remove nans (not sure why they are there)
-        #sub_rsub_diag_df.to_csv('sub_rsub_diag_df.txt', sep='\t')
+        sub_rsub_diag_df.to_csv('sub_rsub_diag_df.txt', sep='\t')
 
 
         # Disease messages 

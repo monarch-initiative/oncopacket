@@ -1,7 +1,7 @@
 import os
 from google.protobuf.json_format import MessageToJson
 
-from oncoexporter.cda import CdaTableImporter, configure_cda_table_importer
+from oncopacket.cda import CdaTableImporter, configure_cda_table_importer
 
 '''
 https://cda.readthedocs.io/en/latest/documentation/cdapython/code_update/#returning-a-matrix-of-results
@@ -13,10 +13,12 @@ fetch_rows( table='subject', match_all=[ 'primary_disease_type = *duct*', 'sex =
 fetch_rows( table='researchsubject', match_all=[ 'primary_diagnosis_site = NULL' ] )
 '''
 ######   Input parameters  ########
-table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=True)
+table_importer: CdaTableImporter = configure_cda_table_importer(use_cache=False)
+
+# see ncit_mapping_files/CDA_primary_diagnosis_site_to_uberon.csv for a list of primary_diagnosis_site terms available in CDA
 
 Query = {'match_any': ['primary_diagnosis_site = *liver*',
-                       'primary_diagnosis_site = *hepatic*'],
+                       'primary_diagnosis_site = *Hepato*'],
          'data_source': 'GDC'}
 cohort_name = 'Liver'
 ####################################

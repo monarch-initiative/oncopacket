@@ -3,6 +3,7 @@ import warnings
 from collections import defaultdict
 from importlib.resources import open_text # deprecated
 from importlib.resources import files
+import pathlib
 
 import pandas as pd
 import phenopackets as pp
@@ -94,28 +95,48 @@ class OpDiagnosisMapper(OpMapper):
         )
         frames = []
         for tissue in tissue_tables:
+
+            '''
             # open_text deprecated, need to switch to files()
             # https://importlib-resources.readthedocs.io/en/latest/using.html#migrating-from-legacy
             #eml = files('email.tests.data').joinpath('message.eml').read_text()
-            with open_text(module_with_tissue_mapping_tables, tissue) as fh:
+            
+            from importlib.resources import files
+            import pathlib
+
+            # Assuming your package is named "my_package" and the file is "data.txt":
+            data_path = files("my_package").joinpath("data.txt")
+
+            with open(data_path, "r") as file_handle:
+                # Read the file contents
+                contents = file_handle.read()
+            '''
+            data_path = files(module_with_tissue_mapping_tables).joinpath(tissue)    
+            #with open_text(module_with_tissue_mapping_tables, tissue) as fh:
+            with open(data_path, 'r') as fh:
                 df = pd.read_csv(
                     fh,
                     converters=CONVERTERS,
                 )
                 frames.append(df)
+                
         ncit_map_df = pd.concat(frames)
         ncit_map = prepare_ncit_map(ncit_map_df)
 
+        '''
+        # uberon_map not used
         module_with_uberon_table = 'oncopacket.ncit_mapping_files'
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(
             module_with_uberon_table,
-            'uberon_to_ncit_diagnosis.tsv',
+            'uberon_to_ncit_diagnosis.tsv', # only has uterine cervix, cervix, lung in it
         )
-
-        return OpDiagnosisMapper(ncit_map, uberon_map)
+        '''
+        
+        return OpDiagnosisMapper(ncit_map) # uberon_map
 
     @staticmethod
     def default_mapper():
+        # not used
         warnings.warn(
             'Use `multitissue_mapper()` instead',
             DeprecationWarning, stacklevel=2,
@@ -130,6 +151,7 @@ class OpDiagnosisMapper(OpMapper):
             )
         ncit_map = prepare_ncit_map(ncit_map_df)
 
+        # uberon_map not used
         uberon_map = OpDiagnosisMapper._read_uberon_mappings(module, 'uberon_to_ncit_diagnosis.tsv')
 
         return OpDiagnosisMapper(ncit_map, uberon_map)
@@ -140,8 +162,9 @@ class OpDiagnosisMapper(OpMapper):
             uberon_df = pd.read_csv(fh, sep='\t')
         return prepare_uberon(uberon_df)
 
-    def __init__(self, ncit_map: typing.Mapping[str, pp.OntologyClass],
-                 uberon_map: typing.Mapping[str, pp.OntologyClass]):
+    def __init__(self, ncit_map: typing.Mapping[str, pp.OntologyClass]):
+        #uberon_map: typing.Mapping[str, pp.OntologyClass]
+        
         """
         Our strategy is to map the three fields
         primary_diagnosis	primary_diagnosis_condition	primary_diagnosis_site	to a single string that we use
@@ -154,30 +177,32 @@ class OpDiagnosisMapper(OpMapper):
         super().__init__(('primary_diagnosis', 'primary_diagnosis_condition', 'primary_diagnosis_site'))
 
         self._ncit_map = ncit_map
-        self._uberon_map = uberon_map
+        #self._uberon_map = uberon_map
         self._compound_key_warning_count = defaultdict(int)
         self._primary_diagnosis_site_warning_count = defaultdict(int)
 
     def get_ontology_term(self, row: pd.Series) -> typing.Optional[pp.OntologyClass]:
+
         primary_diagnosis = replace_with_empty_str_if_none(row["primary_diagnosis"])
         primary_diagnosis_condition = replace_with_empty_str_if_none(row["primary_diagnosis_condition"])
         primary_diagnosis_site = replace_with_empty_str_if_none(row["primary_diagnosis_site"])
 
         # First, search using the composite key.
+        #print("get_ontology_term diagnosis key:", primary_diagnosis, primary_diagnosis_condition, primary_diagnosis_site)
         key = get_cda_key(primary_diagnosis, primary_diagnosis_condition, primary_diagnosis_site)
         if key in self._ncit_map:
             return self._ncit_map.get(key)
         else:
             error_key = f"{primary_diagnosis}---{primary_diagnosis_condition}---{primary_diagnosis_site}"
             self._compound_key_warning_count[error_key] += 1
-
+        '''
         # Next, lookup by the diagnosis site to provide at least a general neoplasm type.
         pds_lower = primary_diagnosis_site.lower()
         if pds_lower in self._uberon_map:
             return self._uberon_map.get(pds_lower)
         else:
             self._primary_diagnosis_site_warning_count[primary_diagnosis_site] += 1
-
+        '''
         # Otherwise fall back to the most general NCIT neoplasm term.
         oterm = pp.OntologyClass()
         oterm.id = "NCIT:C3262"
@@ -209,4 +234,8 @@ class OpDiagnosisMapper(OpMapper):
 
 
 def replace_with_empty_str_if_none(val: typing.Optional[str]) -> str:
+    # for some reason some rows have NaNs
+    val = str(val)
+    if val == 'nan':
+        return '' 
     return val if val is not None else ''

@@ -65,7 +65,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         #self._page_size = page_size # not in new CDA
 
         self._individual_factory = CdaIndividualFactory()
-        self._disease_factory = disease_factory # why is disease_factory set up differently than the others?
+        self._disease_factory = disease_factory 
         self._specimen_factory = CdaBiosampleFactory()
         self._mutation_factory = CdaMutationFactory()
         self._gdc_service = GdcService(timeout=gdc_timeout)
@@ -87,9 +87,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
                 individual_df = pickle.load(cachehandle)
         else:
             print(f"\tcalling CDA function")
-            print(callback_fxn())
             individual_df = callback_fxn()
-            print(individual_df.head())
             if self._use_cache:
                 print(f"Creating cached dataframe as {fpath_cache}")
                 with open(fpath_cache, 'wb') as f:
@@ -97,15 +95,20 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         return individual_df
 
     def get_subject_df(self, q: dict, cohort_name: str) -> pd.DataFrame:
-        """Retrieve the subject dataframe from CDA
+        """
+        Retrieve the subject dataframe from CDA
 
         This method uses the Query that was passed to the constructor to retrieve data from the CDA subject table
 
+        Note: 1/31/25.  The new version of CDA is returning all records that have a subject that is in GDC (essentially all of them), 
+        so despite the data_source='GDC', we get back rows from other data commons.    
+        
         :raises: ValueError if no rows are returned
         :returns: pandas DataFrame that corresponds to the CDA subject table.
         :rtype: pd.DataFrame
         """
         print("\nGetting subject df...")
+
         # Define the callable to fetch the subject rows
         callable = lambda: fetch_rows(table='subject', **q, provenance=True)
 
@@ -124,6 +127,13 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         subject_df = subject_df.drop(columns=['subject_data_source_id'], axis=1)
         subject_df = subject_df.drop_duplicates()
 
+        # filter here for data source (TODO: deal with multiple sources)
+        if 'data_source' in q.keys():
+            subject_df = subject_df[subject_df['subject_data_source'] == q['data_source']]
+        #print("subject_df filtered dim: ", subject_df.shape)
+        #subject_df.to_csv('subject_df.txt', sep='\t')
+        print("obtained subject_df")
+
         return subject_df
 
     def get_researchsubject_df(self, q: dict, cohort_name: str) -> pd.DataFrame:
@@ -134,7 +144,7 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         rsub_callable = lambda: fetch_rows( table='researchsubject', **q , add_columns=['subject_id'])
         rsub_df = self._get_cda_df(rsub_callable, f"{cohort_name}_researchsubject_df.pkl")
         print("obtained researchsubject_df")
-        #rsub_df.to_csv('rsub_diagnosis_df.txt', sep='\t')
+        #rsub_df.to_csv('rsub_df.txt', sep='\t')
 
         return rsub_df
 
@@ -209,19 +219,24 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
         #  - disease_factory
         #  - vital_status
         #  - variants
-
         sub_rsub_diag_df = subject_df.merge(rsub_df, on='subject_id', how='outer')
         sub_rsub_diag_df = sub_rsub_diag_df.merge(diagnosis_df, on='subject_id', how='outer')
 
+        #sub_rsub_diag_df.to_csv("sub_rsub_diag_df.txt", sep='\t') 
         print("merged subject-researchsubject-diagnosis df")
-        print(sub_rsub_diag_df.shape)
-
+        '''
+        Have a problem with patients that have multiple researchsubject IDs with differing primary diagnosis sites
+        
+        	subject_id	cause_of_death	days_to_birth	days_to_death	ethnicity	race	sex	species	vital_status	researchsubject_id	primary_diagnosis_site
+        0	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	phs003155.TCGA-AG-3881	
+        1	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	TCGA-READ.TCGA-AG-3881	
+        2	TCGA.TCGA-AG-3881		-30467	<NA>			female	human	Alive	tcga_read.TCGA-AG-3881.RS	rectum
+        '''
+        
         # Now use the CdaFactory classes to transform the information from the DataFrames into
         # components of the GA4GH Phenopacket Schema
         # Add these components one at a time to Phenopacket objects.
-
-        # treatment_factory = TODO
-
+        
         print("\nConverting to Phenopackets...\n")
 
         '''
@@ -249,22 +264,23 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
             ppackt_d[individual_id] = ppackt
 
         # get stage dictionary, map to subject ID
-        print("Retrieving stage info from GDC...")
+        print("Retrieving stage info from GDC...", end='')
         stage_dict = self._gdc_service.fetch_stage_dict()
+        print("Done!")
+        
         # remove initial data source label: TCGA.TCGA-4J-AA1J > TCGA-4J-AA1J
         sub_rsub_diag_df['subject_id_short'] = sub_rsub_diag_df["subject_id"].str.extract(r'^[^\.]+\.(.+)', expand=False)
         sub_rsub_diag_df['stage'] = sub_rsub_diag_df['subject_id_short'].map(stage_dict).fillna(sub_rsub_diag_df['stage'])
 
         sub_rsub_diag_df['primary_diagnosis'] = sub_rsub_diag_df['primary_diagnosis'].fillna('') # remove nans (not sure why they are there)
-        #sub_rsub_diag_df.to_csv('sub_rsub_diag_df.txt', sep='\t')
+        sub_rsub_diag_df.to_csv('sub_rsub_diag_df.txt', sep='\t')
+
 
 
         # Retrieve GA4GH Disease messages
         for _, row in tqdm(sub_rsub_diag_df.iterrows(), total=len(sub_rsub_diag_df.index), desc="creating disease messsages"):
-            #print(list(row))
-            #print("\n", row["subject_id"])
 
-            # Retrieve GA4GH Disease messages
+            
             disease_message = self._disease_factory.to_ga4gh(row)
             pp = ppackt_d.get(row["subject_id"])
 
@@ -281,23 +297,20 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
             # vital_status = self._gdc_service.fetch_vital_status(subj_id)
             # ppackt_d.get(individual_id).subject.vital_status.CopyFrom(vital_status)
 
-        # Get variant data
-        # takes ~45 minutes due to API calls to GDC
+        # Get variant data 
+        # ->takes ~15-45 minutes due to API calls to GDC
+        # should sub_rsub_diag_df already be filtered to GDC?
         sub_rsub_diag_GDC_df = sub_rsub_diag_df[sub_rsub_diag_df['subject_data_source'] == 'GDC']
+        
         for _, row in tqdm(sub_rsub_diag_GDC_df.iterrows(), total=len(sub_rsub_diag_df.index), desc="getting variants from GDC"):
 
             individual_id = row["subject_id"]
-
-            #for rsub_subj in row["subject_identifier"]:
-            #if row["subject_data_source"] == "GDC":
-            print("GDC variants...")
             # have to strip off the leading name before first period
             # e.g. TCGA.TCGA-05-4250 -> TCGA-05-4250
             subj_id = re.sub("^[^.]+\.", "", individual_id)
-            #print(row["subject_id"], subj_id)
 
             # get variants
-            variant_interpretations = self._gdc_service.fetch_variants(subj_id) # was rsub_subj['value']
+            variant_interpretations = self._gdc_service.fetch_variants(subj_id) 
             if len(variant_interpretations) == 0:
                 #print("No variants found")
                 continue
@@ -337,15 +350,15 @@ class CdaTableImporter(CdaImporter[fetch_rows]):
             #         time_of_collection: Age of subject at time sample was collected
             if not pd.isna(row['days_to_collection']):
                 days_to_coll_iso = CdaFactory.days_to_iso(int(row["days_to_collection"]))
-            # this should work if both are pd.Timedelta:
+            
             # TODO: fix the code below!
+            # this should work if both are pd.Timedelta:
             # time_of_collection = ppackt_d[individual_id]["iso8601duration"] + days_to_coll_iso # should it be 'Age' or 'iso8601duration'?
             # biosample_message["time_of_collection"] = time_of_collection
 
             ppackt_d.get(individual_id).biosamples.append(biosample_message)
 
-        # TODO Treatment
-        # make_cda_medicalaction
+        # treatment to medical action
         for idx, row in tqdm(treatment_df.iterrows(), total=len(treatment_df.index), desc="Treatment DF"):
             individual_id = row["subject_id"]
             medical_action_message = make_cda_medicalaction(row)

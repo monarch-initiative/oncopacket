@@ -20,3 +20,6 @@ UBERON_Terminology.csv comes from https://evs.nci.nih.gov/ftp1/UBERON/About.html
 |UBERON Preferred Term|	The label for the concept as provided by UBERON.|
 |UBERON Synonym(s)|	Terms provided by UBERON that are exact synonyms for the UBERON label (UBERON Preferred Term).|
 |UBERON Definition|	A textual description for the concept provided by UBERON.|
+
+CDA_primary_diagnosis_site_to_uberon.xlsx maps the term from primary_diagnosis_site to the UBERON code via the UBERON_Terminology.csv file.
+Terms not in UBERON_Terminology.csv were found manually via OLS search: https://www.ebi.ac.uk/ols4/. op_uberon_mapper.py reads in CDA_primary_diagnosis_site_to_uberon.csv.

@@ -30,7 +30,7 @@ class CdaDiseaseFactory(CdaFactory):
 
     def __init__(self, disease_term_mapper: OpMapper):
         self._gdc_service = GdcService()
-        self._disease_term_mapper = disease_term_mapper
+        self._disease_term_mapper = disease_term_mapper # called with OpDiagnosisMapper.multitissue_mapper() in _configure.py
         self._stage_mapper = OpDiseaseStageMapper()
         self._uberon_mapper = OpUberonMapper()
 
@@ -96,20 +96,22 @@ class CdaDiseaseFactory(CdaFactory):
             Note: only selecting the stage from the 1st diagnosis out of potentially 4:
             diagnoses.0.diagnosis_id	diagnoses.1.diagnosis_id	diagnoses.2.diagnosis_id	diagnoses.3.diagnosis_id	
         '''
-        #print("\n\nrow[subject_id]",row['subject_id'])
-        #print("row:", list(row))
-        #print("cda stage:", row["stage"]) # empty if coming from GDC
-        stage_str = ''
 
-        if row["stage"] == '': # probably should put in a check for data source here
-            subj_id = re.sub("^[^.]+\.", "", row["subject_id"]) # remove initial data source label
-            gdc_stage = self._gdc_service.fetch_stage(subj_id) # returns a string
-            stage_str = gdc_stage
-        else:
-            stage_str = row["stage"]
+        #print("GDC stage:", row["stage"]) # empty if coming from GDC
+        
+        # we are getting stage data in bulk in cda_table_importer.py now, so the below is not needed
+        
+        #stage_str = ''
+        #if row["stage"] == '': # probably should put in a check for data source here
+            # subj_id = re.sub("^[^.]+\.", "", row["subject_id"]) # remove initial data source label (e.g. TCGA)
+            # gdc_stage = self._gdc_service.fetch_stage(subj_id) # returns a string
+            # stage_str = gdc_stage
+        #else:
+        #    stage_str = row["stage"]
+        #print("stage_str: " + stage_str)
 
         # map to ontology:
-        stage = self._stage_mapper.get_ontology_term(stage_str=stage_str) # returns ontology_term = PPkt.OntologyClass()
+        stage = self._stage_mapper.get_ontology_term(stage_str=row['stage']) # returns ontology_term = PPkt.OntologyClass()
         if stage is not None:
             disease.disease_stage.append(stage) # list, so use append instead of CopyFrom
         ###

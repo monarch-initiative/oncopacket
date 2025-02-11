@@ -13,6 +13,7 @@ class OpDiseaseStageMapper(OpMapper):
         super().__init__(('stage',))
 
     def get_ontology_term(self, stage_str) -> Optional[PPkt.OntologyClass]:
+        
         # changed passed variable from row (pandas series) to a string, because 
         # need to be able to submit a single term obtained from the GDC API, 
         # since the diagnoses.tumor_stage field, which 
@@ -32,6 +33,7 @@ class OpDiseaseStageMapper(OpMapper):
                             'Stage IIIC1': 'NCIT:C95179',
                             'Stage IIIC2': 'NCIT:C95180',
                             'Stage IV': 'NCIT:C27971',
+                            'Stage IVA': 'NCIT:C27979',
                             'Stage IVB': 'NCIT:C27972'
                             }
         
@@ -79,6 +81,7 @@ class OpDiseaseStageMapper(OpMapper):
         
         ontology_term = PPkt.OntologyClass()
         
+        #print("stage_str: " + stage_str)
         if stage_str in stage_d:
             # get standard label and NCIT id
             stage_label = stage_d.get(stage_str)
@@ -90,3 +93,65 @@ class OpDiseaseStageMapper(OpMapper):
             ontology_term.label = 'Stage Unknown'
             
         return ontology_term
+
+'''
+All stages in CDA
+stages = column_values(column='stage')
+
+	stage	count
+0		117106
+1	III	503
+2	Stage IIA	410
+3	Stage IIIC	346
+4	Stage II	189
+5	Stage IIIA	169
+6	Stage IIB	159
+7	Stage IIIB	141
+8	Stage IA	117
+9	Stage I	113
+10	IV	103
+11	Stage IV	93
+12	M0	92
+13	IA	88
+14	Stage III	87
+15	T2N0M0	64
+16	IB	63
+17	II	62
+18	M3	52
+19	Stage IB	41
+20	IIIa	40
+21	Stage1	28
+22	Stage IVA	21
+23	M1	20
+24	T3N0M0	17
+25	IIIA	16
+26	IIb	13
+27	IIA	8
+28	Ia	8
+29	M2	8
+30	Stage IC	8
+31	IVa	7
+32	Not Received	5
+33	T2N1M0	5
+34	pT3a	5
+35	V	4
+36	Va	4
+37	IVb	3
+38	Not Performed	3
+39	T3N0M1	3
+40	I	2
+41	IIB	2
+42	T2N0M1	2
+43	T3N1M0	2
+44	IIIB	1
+45	IIIb	1
+46	T2N1M1	1
+47	T2N2M1	1
+48	T3N1M1	1
+49	TisN1M1	1
+50	Vb	1
+51	pT1	1
+52	pT1a	1
+53	pT1b	1
+54	pT4	1
+'''

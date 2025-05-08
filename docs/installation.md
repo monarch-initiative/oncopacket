@@ -1,78 +1,67 @@
 # Installation
 
-We will add this project to PyPI to ease installation. For now, a local installation is needed to run the notebooks.
-There are many ways of installing Python projects locally. We will explain several options here.
+The package is designed to work with Python 3.8 or later.
 
+## Dependencies
 
-### Install into virtual environment
-TBD
+Oncopacket has the following main dependencies:
+- `phenopackets` (GA4GH Phenopacket Schema)
+- `cdapython` (Cancer Data Aggregator Python library)
+- `hpo-toolkit` (Tools for working with the Human Phenotype Ontology)
+- `requests` (For API communication)
 
-### Create a virtual environment
+## Installation
 
+### 1: Create a virtual environment (recommended)
 
-An optional first step is to create a virtual environment.
-Feel free to skip this if you already have a virtual environment which you want to use:
-
+First, create and activate a virtual environment, for example:
 
 ```shell
 python3 -m venv oncopacket-venv
-source oncopacket-venv/bin/activate
+source oncopacket-venv/bin/activate  # On Windows: oncopacket-venv\Scripts\activate
 ```
 
+### 2: Install from GitHub repository
 
-
-
-The command above will create a new virtual environment at `oncopacket-venv` and activate the environment.
-
-
-### Install oncopacket
-
-Next, oncopacket can be installed into an existing virtual environment by running:
-
+Install the latest version directly from the GitHub repository:
 
 ```shell
- # Ensure you are in the repo folder
+# Ensure you are in the repo folder
 cd oncopacket
 python3 -m pip install --editable .
 ```
 
-`pip` will install `oncopacket` into the active environment. The package is installed in *editable* mode -
-any code updates are available after Python restart, instead of having to reinstall.
+The package is installed in *editable* mode - any code updates are available after Python restart, without needing to reinstall.
 
+## 3. Using Oncopacket in Jupyter notebooks (optional)
 
-### Use oncopacket in Jupyter notebook
+To use Oncopacket in Jupyter notebooks, first install Jupyter and ipykernel:
 
-
-To use the kernel in Jupyter notebook,
-first, make sure you have `ipykernel` library to allow using the virtual environment as a Jupyter kernel.
-
-```
+```shell
 python3 -m pip install jupyter ipykernel
 ```
 
+Then, create a new Jupyter kernel and register it with Jupyter:
 
-Then, we can create a new Jupyter kernel and register the kernel with Jupyter by running:
-
-```
+```shell
 python -m ipykernel install --user --name oncopacket_env --display-name "oncopacket"
 ```
 
-Last, starting from the project directory, we can run Jupyter to work on the notebooks of the Oncoexport repository.
+Start Jupyter to work with the notebooks in the repository:
 
-```
+```shell
 cd notebooks
 jupyter-notebook
 ```
 
+At this point, a Jupyter page should open in your browser. Navigate to any notebook (and 
+activate the `oncopacket_env` kernel if you made one above).
 
-At this point, a Jupyter page should open in the system browser. Navigate to the notebook or create one and be sure
-to activate the ``oncopacket_env`` kernel.
+## Building the documentation
 
+To run the mkdocs server locally for documentation development:
 
-
-## mkdocs for documentation.
-
-To run the mkdocs server locally, enter the following code to install prerequisites in the virtual environment
+1. Install the required packages:
 
 ```bash
 pip install mkdocs-material
@@ -82,10 +71,11 @@ pip install pillow cairosvg
 pip install mkdocstrings[python]
 ```
 
-and then enter
+2. Serve the documentation locally:
 
 ```bash
 mkdocs serve
 ```
 
-This will serve the documentation site at http://127.0.0.1:8000/ and dynamically show changes. Merging to main will update the site on github IO.
+This will serve the documentation site at http://127.0.0.1:8000/ and dynamically show 
+changes. Merging to the main branch will update the public documentation site.

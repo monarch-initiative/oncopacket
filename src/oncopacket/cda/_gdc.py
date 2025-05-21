@@ -27,7 +27,7 @@ class GdcService:
             page_size=100,
             page=1,
             timeout=30,
-            transcript_to_protein_url='https://ftp.ensembl.org/pub/current_tsv/homo_sapiens/Homo_sapiens.GRCh38.113.ena.tsv.gz'
+            transcript_to_protein_url='https://ftp.ensembl.org/pub/current_tsv/homo_sapiens/Homo_sapiens.GRCh38.114.ena.tsv.gz'
     ):
         self._logger = logging.getLogger(__name__)
         self._variants_url = 'https://api.gdc.cancer.gov/ssms'
@@ -128,8 +128,8 @@ class GdcService:
         '''
         Need to make sure we are getting demographics.time_to_last_follow_up and demographics.time_to_last_known_disease_status for
         survival analysis of patients who have not died
-        
-        
+
+
         '''
         survival_data = self._fetch_data_from_gdc(self._survival_url, subject_id)
         vital_status_data = self._fetch_data_from_gdc(self._cases_url, subject_id, self._case_fields)
@@ -184,13 +184,13 @@ class GdcService:
          Get df from GDC API with stages for input list of subject IDs using POST instead of GET
           - speeds up creating of phenopackets
           - returns a dictionary of subject ID -> stage
-          
+
         Note: diagnoses.tumor_stage is empty, with 4 other options available
             - not clear if they conflict with each other
-            - ajcc_pathologic_stage has the highest number so we use that initially 
+            - ajcc_pathologic_stage has the highest number so we use that initially
             - TODO: get alternative stage if ajcc_pathologic_stage not present
         '''
-        
+
         fields = [
              "submitter_id",
              "cases.submitter_id",
@@ -216,9 +216,9 @@ class GdcService:
         #stage_df.head()
         #stage_df.shape
         stage_dict = dict(zip(stage_df.submitter_id, stage_df.ajcc0))
-        
+
         return stage_dict
-    
+
     def _map_mutation_to_variant_interpretation(self, mutation) -> pp.VariantInterpretation:
 
         # TODO: 't_depth', 't_ref_count', 't_alt_count', 'n_depth', 'n_ref_count', 'n_alt_count'
@@ -323,7 +323,7 @@ class GdcService:
         },
         '''
         return ([expression_c,expression_p])
-      
+
     @staticmethod
     def _map_consequence_to_gene_descriptor(csq) -> (typing.Optional[pp.GeneDescriptor]):
 

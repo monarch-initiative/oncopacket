@@ -33,11 +33,12 @@ nav:
       - cda_biosample_factory: 'cda/cda_biosample_factory.md'
       - cda_mutation_factory: 'cda/cda_mutation_factory.md'
     - model:
-      - "overview": "index.md"
+      - "overview": "model/index.md"
       - "op_individual": "model/op_individual.md"
   - explanations:
     - cda_disease: 'explanations/cda_disease.md'
     - cda_mutation: 'explanations/cda_mutation.md'
+    - cda_api: 'explanations/new_cda_api.md'
 
 
 plugins:
